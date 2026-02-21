@@ -16,7 +16,7 @@ void scan_directory(const char *path)
 
     while ((entry = readdir(dir)) != NULL)
     {
-        // Ignore current and parent directories
+        //ignore current and parent directories
         if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0)
             continue;
 
@@ -26,14 +26,12 @@ void scan_directory(const char *path)
         struct stat fileStat;
         stat(fullPath, &fileStat);
 
-        if (S_ISDIR(fileStat.st_mode))
+        if (S_ISDIR(fileStat.st_mode)) //if its a directory recursive function call used 
         {
-            // It's a directory → scan again
-            scan_directory(fullPath);
+            scan_directory(fullPath); // the function
         }
         else
         {
-            // It's a file
             printf("Found file: %s\n", fullPath);
         }
     }
